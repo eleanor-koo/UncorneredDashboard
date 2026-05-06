@@ -9,17 +9,26 @@ const cities = ['Boston', 'Kansas City', 'Providence'];
 
 export function Header({ selectedCity, onCityChange }: HeaderProps) {
   return (
-    <div className="bg-white border-b border-gray-200 px-6 py-4">
+    <div className="bg-white border-b border-gray-200 px-5 py-2.5">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold text-gray-900">Uncornered.live</h1>
-          <div className="h-6 w-px bg-gray-300" />
-          <div className="flex items-center gap-2">
-            <MapPin className="h-5 w-5 text-orange-500" />
+        
+        {/* Left side */}
+        <div className="flex items-center gap-3">
+          
+          {/* Title */}
+          <h1 className="text-lg font-semibold text-gray-900">
+            Uncornered.live
+          </h1>
+
+          <div className="h-4 w-px bg-gray-300" />
+
+          {/* City selector */}
+          <div className="flex items-center gap-1.5">
+            <MapPin className="h-4 w-4 text-orange-500" />
             <select
               value={selectedCity}
               onChange={(e) => onCityChange(e.target.value)}
-              className="bg-transparent border-none text-lg font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 rounded px-2 cursor-pointer"
+              className="bg-transparent border-none text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 rounded px-1.5 cursor-pointer"
             >
               {cities.map((city) => (
                 <option key={city} value={city}>
@@ -29,8 +38,10 @@ export function Header({ selectedCity, onCityChange }: HeaderProps) {
             </select>
           </div>
         </div>
-        <div className="text-sm text-gray-500">
-          Live Intelligence Environment
+
+        {/* Right side */}
+        <div className="text-xs text-gray-500">
+          Live Intelligence
         </div>
       </div>
     </div>

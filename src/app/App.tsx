@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { Header } from './components/Header';
 import { StatsOverview } from './components/StatsOverview';
-import { MapControls } from './components/MapControls';
 import { InteractiveMap } from './components/InteractiveMap';
-import { InsightsPanel } from './components/InsightsPanel';
 import { NavigationCards } from './components/NavigationCards';
 import { CatalystDirectory } from './components/pages/CatalystDirectory';
 import { LeadDirectory } from './components/pages/LeadDirectory';
@@ -30,17 +28,13 @@ export default function App() {
   const [selectedCity, setSelectedCity] = useState('Boston');
   const [currentPage, setCurrentPage] = useState<Page>('home');
 
-  // Map layer state - controls visibility of different map elements
-  const [mapLayers, setMapLayers] = useState({
+  // Map layer state for iframe parameter passing
+  const mapLayers = {
     crews: true,
     catalysts: true,
     conflicts: true,
     incidents: true,
     networks: false,
-  });
-
-  const handleLayerToggle = (layer: string) => {
-    setMapLayers((prev) => ({ ...prev, [layer]: !prev[layer as keyof typeof prev] }));
   };
 
   if (currentPage === 'directory') {
@@ -68,10 +62,8 @@ export default function App() {
       <Header selectedCity={selectedCity} onCityChange={setSelectedCity} />
       <StatsOverview city={selectedCity} />
 
-      <div className="flex-1 flex overflow-hidden">
-        <MapControls layers={mapLayers} onLayerToggle={handleLayerToggle} />
+      <div className="flex-1 overflow-hidden">
         <InteractiveMap city={selectedCity} layers={mapLayers} />
-        <InsightsPanel />
       </div>
 
       <NavigationCards onNavigate={setCurrentPage} />
